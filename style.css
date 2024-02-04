@@ -101,7 +101,7 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-top: 280%; /* Adjust as needed for spacing */
+    padding-top: 10px; /* Adjust as needed for spacing */
 }
 
 .socialImage {
