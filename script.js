@@ -16,6 +16,7 @@ function openSocialLink(url) {
 }
 
 // Update the fetch URL based on category and type
+
 async function fetchAndDisplayWaifus() {
     const type = document.getElementById('nsfwToggle').checked ? 'nsfw' : 'sfw';
     const category = document.getElementById('categoryDropdown').value;
@@ -34,7 +35,7 @@ async function fetchAndDisplayWaifus() {
         const data = await response.json();
 
         const waifuContainer = document.getElementById('waifu-container');
-        waifuContainer.innerHTML = '';
+        waifuContainer.innerHTML = ''; // Clear existing images
 
         data.files.forEach(url => {
             waifuContainer.innerHTML += `<img src="${url}" alt="Waifu Image">`;

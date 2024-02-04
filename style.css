@@ -64,7 +64,7 @@ nav {
 /* Add styles for the sidePanel and social buttons */
 #sidePanel {
     position: fixed;
-    top: 0;
+    top: 1%;
     right: -300px; /* initially hidden */
     width: 250px;
     background-color: #001f3f;
@@ -134,6 +134,31 @@ nav {
     width: 125px;
     border-radius: 5px;
     background-color: #003366;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 10px;
+    margin: 12px;
+    border-radius: 15px;
+}
+
+.image-container {
+    position: relative;
+}
+
+main img {
+    max-width: 100%;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+main img:hover {
+    filter: none;
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 #footer {
