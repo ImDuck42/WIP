@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendetta Themes by ImDuck42</title>
+
+    <meta property="og:title" content="Title" />
+    <meta property="og:description" content="Description" />
+    <meta property="og:image" content="Image" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div id="Header">
+            <h1>Website Title :)</h1>
+        </div>
+
+        <div id="Media">
+            <img src="assets/icons/menu.png" alt="Menu" onclick="toggleSidePanel()">
+        </div>
+    </nav>
+
+    <!-- Add footer with clickable social buttons to the sidePanel -->
+    <div id="sidePanel">
+        <div id="sideHeader">
+            <h2>Menu</h2>
+            <button id="closeBtn" onclick="closeSidePanel()">
+                <img src="assets/icons/close.png" alt="Close" />
+            </button>
+        </div>
+        <!-- Content for the side panel -->
+        <p>Side Panel Content</p>
+
+        <!-- Footer with clickable social buttons -->
+        <footer id="sideFooter">
+            <img src="assets/icons/discord.png" class="socialImage" onclick="openSocialLink('https://discord.com/invite/kfsJkVTbg4')">
+            <img src="assets/icons/github-sign.png" class="socialImage" onclick="openSocialLink('https://github.com/ImDuck42')">
+            <img src="assets/icons/spotify-logo.png" class="socialImage" onclick="openSocialLink('https://open.spotify.com/user/31kec3k4xfttchdyssez2dw7rm24')">
+            <img src="assets/icons/youtube.png" class="socialImage" onclick="openSocialLink('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=64s')">
+        </footer>
+    </div>
+
+    <main>
+    </main>      
+
+</body>
+
+<footer id="footer">
+   <div>
+        Please dont sue me
+    </div>
+</footer> 
+       
+  <script src="script.js"></script>
+</body>
+</html>

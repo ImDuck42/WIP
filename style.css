@@ -1,0 +1,129 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+
+body {
+    background-image: url("assets/Wallpaper.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Segoe UI";
+    font-size: 20px;
+    color: #ffffff;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 75%;
+}
+
+#Header {
+    text-align: center;
+    width: 100%;
+    padding: 0px 20px;
+    border-radius: 10px;
+    background-color: #001f3f; /* Very dark blue */
+    backdrop-filter: blur(1px);
+}
+
+#Media {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: right;
+    margin: 0 0 0 10px;
+}
+
+/* style all child elements of #Media */
+#Media > * {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #001f3f; /* Very dark blue */
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.5), background-color 0.2s ease-in-out;
+}
+
+/* animate child elements when hovered */
+#Media > *:hover {
+    background-color: #003366; /* Dark blue on hover */
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#Media img {
+    cursor: pointer;
+}
+
+/* Add rounded corners to the sidePanel */
+#sidePanel {
+    position: fixed;
+    top: 0;
+    right: -300px; /* initially hidden */
+    width: 250px;
+    height: 100%;
+    background-color: #001f3f;
+    transition: right 0.3s ease-in-out;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 15px; /* Adjust the radius as needed */
+}
+
+#sideHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Align items with space between them */
+    align-items: center; /* Center items vertically */
+}
+
+#sidePanel button {
+    background-color: #00336600;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded edges for the close button */
+}
+
+#sidePanel img {
+    width: 20px; /* Adjust the size of the close icon */
+}
+
+/* Add styles for the sideFooter and social buttons */
+#sideFooter {
+    margin-top: auto; /* Push the footer to the bottom of the side panel */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 280%; /* Adjust as needed for spacing */
+}
+
+.socialImage {
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded edges for the social buttons */
+    width: 70px; /* Adjust the width as needed */
+}
+
+#footer {
+    background-color: #001f3f; /* Very dark blue */
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    position: fixed;
+    left: 3px;
+    bottom: 3px;
+    right: 3px;
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+}
