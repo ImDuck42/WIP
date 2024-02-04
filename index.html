@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendetta Themes by ImDuck42</title>
+    <title>Waifu Generator by ImDuck42</title>
 
-    <meta property="og:title" content="Title" />
-    <meta property="og:description" content="Description" />
-    <meta property="og:image" content="Image" />
+    <meta property="og:title" content="Waifu Generator" />
+    <meta property="og:description" content="Generate waifus using the waifu.pics API" />
+    <meta property="og:image" content="assets/images/Waifu.jpg" />
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +16,7 @@
 <body>
     <nav>
         <div id="Header">
-            <h1>Website Title :)</h1>
+            <h1>Waifu Generator</h1>
         </div>
 
         <div id="Media">
@@ -24,16 +24,28 @@
         </div>
     </nav>
 
-    <!-- Add footer with clickable social buttons to the sidePanel -->
+    <!-- Add sidebar with NSFW toggle and category dropdown -->
     <div id="sidePanel">
         <div id="sideHeader">
-            <h2>Menu</h2>
+            <h2>Options</h2>
             <button id="closeBtn" onclick="closeSidePanel()">
                 <img src="assets/icons/close.png" alt="Close" />
             </button>
         </div>
+        <div class="toggleAndButtonContainer">
+            <label class="switch">
+                <p>Toggle NSFW</p>
+                <input type="checkbox" id="nsfwToggle" enabled>
+            </label>
+            <div class="generate">
+                <select id="categoryDropdown">
+                    <!-- Categories will be dynamically added here -->
+                </select>
+                <button onclick="fetchAndDisplayWaifus()">Generate</button>    
+            </div>
+        </div>
         <!-- Content for the side panel -->
-        <p>Side Panel Content</p>
+        <p>My Socials</p>
 
         <!-- Footer with clickable social buttons -->
         <footer id="sideFooter">
@@ -45,16 +57,16 @@
     </div>
 
     <main>
-    </main>      
+        <div id="waifu-container"></div>
+    </main>
 
+    <footer id="footer">
+        <div>
+            Please don't sue me
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 
-<footer id="footer">
-   <div>
-        Please dont sue me
-    </div>
-</footer> 
-       
-  <script src="script.js"></script>
-</body>
 </html>
