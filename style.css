@@ -156,7 +156,11 @@ main img {
 main img:hover {
     filter: none;
     cursor: pointer;
-    transform: scale(1.05);
+    transform: scale(1.025);
+}
+
+main img:not(:hover) {
+    filter: brightness(0.9); /* Adjust the value as needed */
 }
 
 #scrollToTopBtn {
