@@ -12,6 +12,8 @@ body {
 }
 
 nav {
+    left: 1%;
+    right: 1%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,7 +67,7 @@ nav {
     width: 250px;
     background-color: #001f3f;
     transition: right 0.2s ease-in-out;
-    z-index: 1;
+    z-index: 2;
     padding: 20px;
     border-radius: 15px; /* Adjust the radius as needed */
     opacity: 95%;
@@ -164,9 +166,9 @@ main img:hover {
     text-align: center;
     font-size: 14px;
     position: fixed;
-    left: 3px;
-    bottom: 3px;
-    right: 3px;
+    left: 1%;
+    bottom: 1%;
+    right: 1%;
     border-radius: 10px;
     backdrop-filter: blur(3px);
 }
