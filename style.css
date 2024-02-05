@@ -68,7 +68,7 @@ nav {
     z-index: 1;
     padding: 20px;
     border-radius: 15px; /* Adjust the radius as needed */
-    opacity: 90%;
+    opacity: 95%;
 }
 
 #sideHeader {
@@ -98,7 +98,7 @@ nav {
 #sideFooter {
     display: flex;
     align-items: center; /* Center items horizontally */
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding-top: 5px; /* Adjust as needed for spacing */
     padding-bottom: 25px;
 }
@@ -110,7 +110,6 @@ nav {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px; /* Rounded edges for the social buttons */
-    width: 70px; /* Adjust the width as needed */
 }
 
 .switch {
@@ -145,7 +144,9 @@ main {
 }
 
 main img {
-    max-width: 100%;
+    width: 100%; /* Make images fill the container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 100%; /* Prevent images from exceeding container height */
     border-radius: 10px;
     transition: transform 0.2s ease-in-out;
 }
@@ -153,7 +154,7 @@ main img {
 main img:hover {
     filter: none;
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 #footer {
