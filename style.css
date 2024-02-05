@@ -159,6 +159,25 @@ main img:hover {
     transform: scale(1.05);
 }
 
+#scrollToTopBtn {
+    display: none;
+    max-width: 5%;
+    max-height: 5%;
+    position: fixed;
+    bottom: 5%;
+    right: 1%;
+    background-color: #003366;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    opacity: 90%;
+    z-index: 2;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #001f3f; /* Darker blue on hover */
+}
+
 #footer {
     background-color: #001f3f; /* Very dark blue */
     color: #fff;

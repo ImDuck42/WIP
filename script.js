@@ -80,3 +80,41 @@ const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
 
 // SFW categories
 const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'];
+
+// Scroll to Top Button Script
+function scrollToTop() {
+    var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    var targetScroll = 0; // Scroll to the top
+    var scrollStep = currentScroll / 20;
+
+    function scrollAnimation() {
+        // If currentScroll is greater than targetScroll, scroll up
+        if (currentScroll > targetScroll) {
+            currentScroll -= scrollStep;
+            document.documentElement.scrollTop = currentScroll;
+            document.body.scrollTop = currentScroll;
+
+            // Continue the animation
+            window.requestAnimationFrame(scrollAnimation);
+        } else {
+            // Stop the animation when you reach the top
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }
+    }
+
+    // Start the animation
+    window.requestAnimationFrame(scrollAnimation);
+}
+
+// Scroll Animation
+window.onscroll = function () {
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // Show the button when the user scrolls down 20px from the top
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollToTopBtn.style.display = "block";
+    } else {
+        scrollToTopBtn.style.display = "none";
+    }
+};
