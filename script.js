@@ -1,10 +1,6 @@
 function toggleSidePanel() {
     var sidePanel = document.getElementById("sidePanel");
-    if (sidePanel.style.right === "-300px") {
-        sidePanel.style.right = "0";
-    } else {
-        sidePanel.style.right = "-300px";
-    }
+    sidePanel.style.right = sidePanel.style.right === "-300px" ? "0" : "-300px";
 }
 
 function closeSidePanel() {
@@ -20,7 +16,6 @@ function openSocialLink(url) {
 async function fetchAndDisplayWaifus() {
     const type = document.getElementById('nsfwToggle').checked ? 'nsfw' : 'sfw';
     const category = document.getElementById('categoryDropdown').value;
-
     const apiUrl = `https://api.waifu.pics/many/${type}/${category}`;
 
     try {
@@ -42,8 +37,7 @@ async function fetchAndDisplayWaifus() {
         });
 
         // Append waifu images to the <main> section
-        const mainContainer = document.querySelector('main');
-        mainContainer.innerHTML = waifuContainer.innerHTML;
+        document.querySelector('main').innerHTML = waifuContainer.innerHTML;
 
     } catch (error) {
         console.error('Error fetching waifu images:', error);
@@ -53,7 +47,6 @@ async function fetchAndDisplayWaifus() {
 // Enable the NSFW toggle and set initial category dropdown options
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('nsfwToggle').removeAttribute('disabled');
-
     const categoryDropdown = document.getElementById('categoryDropdown');
 
     // Set initial category options based on NSFW toggle
