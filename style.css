@@ -165,10 +165,10 @@ main img:not(:hover) {
 
 #scrollToTopBtn {
     display: none;
-    max-width: 5%;
-    max-height: 5%;
+    max-width: 50px;
+    max-height: 50px;
     position: fixed;
-    bottom: 5%;
+    bottom: 7%;
     right: 1%;
     background-color: #003366;
     padding: 10px;
