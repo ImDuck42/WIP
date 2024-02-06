@@ -135,8 +135,8 @@ nav {
 main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.5%;
-    padding: 0.5%;
+    gap: 1%;
+    padding-top: 2%;
     border-radius: 15px;
 }
 
