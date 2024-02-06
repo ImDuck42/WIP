@@ -1,18 +1,20 @@
+// Function to toggle the side panel visibility
 function toggleSidePanel() {
     var sidePanel = document.getElementById("sidePanel");
     sidePanel.style.right = sidePanel.style.right === "-300px" ? "0" : "-300px";
 }
 
+// Function to close the side panel
 function closeSidePanel() {
     document.getElementById("sidePanel").style.right = "-300px";
 }
 
+// Function to open a social link in a new tab
 function openSocialLink(url) {
     window.open(url, '_blank');
 }
 
-// Update the fetch URL based on category and type
-
+// Function to fetch and display waifus based on user preferences
 async function fetchAndDisplayWaifus() {
     const type = document.getElementById('nsfwToggle').checked ? 'nsfw' : 'sfw';
     const category = document.getElementById('categoryDropdown').value;
@@ -32,11 +34,12 @@ async function fetchAndDisplayWaifus() {
         const waifuContainer = document.getElementById('waifu-container');
         waifuContainer.innerHTML = ''; // Clear existing images
 
+        // Append waifu images to the container
         data.files.forEach(url => {
             waifuContainer.innerHTML += `<img src="${url}" alt="Waifu Image">`;
         });
 
-        // Append waifu images to the <main> section
+        // Display waifu images in the main section
         document.querySelector('main').innerHTML = waifuContainer.innerHTML;
 
     } catch (error) {
@@ -64,6 +67,7 @@ function updateCategoryOptions() {
     // Clear existing options
     categoryDropdown.innerHTML = '';
 
+    // Define categories based on NSFW toggle
     const categories = nsfwToggle.checked ? nsfwCategories : sfwCategories;
 
     // Add categories dynamically
@@ -81,12 +85,13 @@ const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
 // SFW categories
 const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'];
 
-// Scroll to Top Button Script
+// Function for smooth scrolling to the top
 function scrollToTop() {
     var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
     var targetScroll = 0; // Scroll to the top
     var scrollStep = currentScroll / 20;
 
+    // Recursive function for smooth scrolling animation
     function scrollAnimation() {
         // If currentScroll is greater than targetScroll, scroll up
         if (currentScroll > targetScroll) {
@@ -107,7 +112,7 @@ function scrollToTop() {
     window.requestAnimationFrame(scrollAnimation);
 }
 
-// Scroll Animation
+// Scroll Animation - Show the scroll-to-top button when scrolling down
 window.onscroll = function () {
     var scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
