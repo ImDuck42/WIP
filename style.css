@@ -1,56 +1,56 @@
-/* styles.css */
+/* General Styles */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
 body {
-    background-image: url("assets/images/Wallpaper.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: "Segoe UI";
+    background: #001f3f url("assets/images/Wallpaper.jpg") fixed no-repeat;
+    font-family: "Segoe UI", sans-serif;
     font-size: 20px;
     color: #ffffff;
+    margin: 0;
 }
 
-nav {
-    left: 1%;
-    right: 1%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
+/* Header Styles */
 #Header {
     text-align: center;
     width: 100%;
     padding: 0 20px;
     border-radius: 10px;
-    background-color: #001f3f; /* Very dark blue */
+    background-color: #001f3f;
     backdrop-filter: blur(1px);
 }
 
-#Media {
+/* Navigation Styles */
+nav {
+    z-index: 2;
+    margin-top: 0.5%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end; /* Corrected from align-items: right; */
+    align-items: flex-end;
     margin: 0 0 0 10px;
 }
 
-/* style all child elements of #Media */
-#Media > * {
+#menu > * {
     width: 65px;
     height: 65px;
     border-radius: 10px;
     padding: 10px;
     margin: 0 5px;
-    background-color: #001f3f; /* Very dark blue */
+    background-color: #001f3f;
     object-fit: contain;
     object-position: center;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.5), background-color 0.2s ease-in-out;
 }
 
-/* animate child elements when hovered */
-#Media > *:hover {
-    background-color: #003366; /* Dark blue on hover */
+#menu > *:hover {
+    background-color: #003366;
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -59,33 +59,33 @@ nav {
     cursor: pointer;
 }
 
-/* Add styles for the sidePanel and social buttons */
+/* Side Panel Styles */
 #sidePanel {
     position: fixed;
     top: 1%;
-    right: -300px; /* initially hidden */
+    right: -300px;
     width: 250px;
     background-color: #001f3f;
     transition: right 0.2s ease-in-out;
     z-index: 2;
     padding: 20px;
-    border-radius: 15px; /* Adjust the radius as needed */
-    opacity: 95%;
+    border-radius: 15px;
+    opacity: 0.95;
 }
 
 #sideHeader {
     display: flex;
-    justify-content: space-between; /* Align items with space between them */
-    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+    align-items: center;
 }
 
 #sidePanel button {
-    background-color: #00336600;
+    background-color: transparent;
     color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
-    border-radius: 5px; /* Rounded edges for the close button */
+    border-radius: 5px;
 }
 
 #sidePanel p {
@@ -93,15 +93,15 @@ nav {
 }
 
 #sidePanel img {
-    width: 20px; /* Adjust the size of the close icon */
+    width: 20px;
 }
 
-/* Add styles for the sideFooter and social buttons */
+/* Side Footer Styles */
 #sideFooter {
     display: flex;
-    align-items: center; /* Center items horizontally */
+    align-items: center;
     justify-content: space-evenly;
-    padding-top: 5px; /* Adjust as needed for spacing */
+    padding-top: 5px;
     padding-bottom: 25px;
 }
 
@@ -111,7 +111,7 @@ nav {
     border: none;
     padding: 10px;
     cursor: pointer;
-    border-radius: 5px; /* Rounded edges for the social buttons */
+    border-radius: 5px;
 }
 
 .switch {
@@ -132,11 +132,14 @@ nav {
     background-color: #003366;
 }
 
+/* Main Content Styles */
 main {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    padding-top: 1%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1%;
-    padding-top: 2%;
+    gap: 0.5%;
     border-radius: 15px;
 }
 
@@ -145,9 +148,9 @@ main {
 }
 
 main img {
-    width: 100%; /* Make images fill the container */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 100%; /* Prevent images from exceeding container height */
+    width: 100%;
+    height: auto;
+    max-height: 100%;
     border-radius: 10px;
     transition: transform 0.2s ease-in-out;
 }
@@ -159,9 +162,10 @@ main img:hover {
 }
 
 main img:not(:hover) {
-    filter: brightness(0.9); /* Adjust the value as needed */
+    filter: brightness(0.9);
 }
 
+/* Scroll To Top Button Styles */
 #scrollToTopBtn {
     display: none;
     max-width: 50px;
@@ -173,24 +177,25 @@ main img:not(:hover) {
     padding: 10px;
     cursor: pointer;
     border-radius: 15px;
-    opacity: 90%;
+    opacity: 0.9;
     z-index: 2;
 }
 
 #scrollToTopBtn:hover {
-    background-color: #001f3f; /* Darker blue on hover */
+    background-color: #001f3f;
 }
 
+/* Footer Styles */
 #footer {
-    background-color: #001f3f; /* Very dark blue */
+    background-color: #001f3f;
     color: #fff;
     padding: 8px;
     text-align: center;
     font-size: 14px;
     position: fixed;
-    left: 1%;
-    bottom: 1%;
-    right: 1%;
+    left: 0.5%;
+    bottom: 0.5%;
+    right: 0.5%;
     border-radius: 10px;
     backdrop-filter: blur(3px);
 }

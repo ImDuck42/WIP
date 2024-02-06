@@ -22,13 +22,13 @@
             <h1>Waifu Generator</h1>
         </div>
 
-        <div id="Media">
+        <div id="menu">
             <img src="assets/icons/menu.png" alt="Menu" onclick="toggleSidePanel()">
         </div>
     </nav>
 
     <!-- Scroll to top button -->
-    <img src="assets/icons/up-arrow.png" id="scrollToTopBtn" onclick="scrollToTop()"></button>
+    <img src="assets/icons/up-arrow.png" id="scrollToTopBtn" onclick="scrollToTop()">
 
     <!-- Sidebar with NSFW toggle and category dropdown -->
     <div id="sidePanel">
@@ -48,7 +48,7 @@
             <select id="categoryDropdown">
                 <!-- Categories will be dynamically added here -->
             </select>
-            <button onclick="fetchAndDisplayWaifus(); closeSidePanel()">Generate</button>    
+            <button onclick="fetchAndDisplayWaifus(); closeSidePanel()">Generate</button>
         </div>
 
         <!-- Content for the side panel -->
@@ -74,7 +74,7 @@
     </footer>
 
     <!-- JavaScript script link -->
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </body>
 
 </html>
