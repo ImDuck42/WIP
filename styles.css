@@ -123,6 +123,7 @@ body {
 .toggle-switch {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
     cursor: pointer;
 }
@@ -227,8 +228,7 @@ input:checked + .slider::before {
 .image-wrapper {
     position: relative;
     overflow: hidden;
-    border-radius: var(--border-radius);
-    background: var(--bg-secondary);
+    transition: var(--transition);
 }
 
 .image-wrapper img {
@@ -236,12 +236,12 @@ input:checked + .slider::before {
     height: auto;
     object-fit: contain;
     transition: var(--transition);
+    border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.image-wrapper img:hover {
+.image-wrapper:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(124, 77, 255, 0.2);
 }
 
 .scroll-top {
@@ -312,11 +312,6 @@ input:checked + .slider::before {
     animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1 }
-    50% { opacity: 0.5 }
-}
-
 .error-container {
     display: flex;
     flex-direction: column;
@@ -364,6 +359,12 @@ input:checked + .slider::before {
     background: var(--accent-secondary);
     transform: translateY(-1px);
 }
+
+@keyframes pulse {
+    0%, 100% { opacity: 1 }
+    50% { opacity: 0.5 }
+}
+
 
 @keyframes fadeIn {
     from {
