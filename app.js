@@ -41,17 +41,16 @@ function updateCategories() {
 // URL Handling
 function getBasePath() {
     const pathParts = window.location.pathname.split('/');
-    return pathParts[1] || '';
+    return pathParts[1] ? `/${pathParts[1]}` : '';
 }
 
 function updateURL(type, category) {
     const basePath = getBasePath();
-    const path = `/${basePath}/${type}/${category}`;
-    window.history.pushState({}, '', path);
+    const newPath = `${basePath}/${type}/${category}`;
+    window.history.pushState({}, '', newPath);
 }
 
 function parseURL() {
-    const basePath = getBasePath();
     const pathSegments = window.location.pathname.split('/').slice(2);
     return {
         type: pathSegments[0] || '',
@@ -62,10 +61,9 @@ function parseURL() {
 function validateAndApplyURLParams() {
     const { type, category } = parseURL();
     const validTypes = ['nsfw', 'sfw'];
-    const basePath = getBasePath();
     
     if (!validTypes.includes(type) || !(type === 'nsfw' ? nsfwCategories : sfwCategories).includes(category)) {
-        window.history.replaceState({}, '', `/${basePath}`);
+        window.history.replaceState({}, '', getBasePath() || '/');
         return false;
     }
 
@@ -118,8 +116,7 @@ async function fetchAndDisplayWaifus() {
         updateURL(type, category);
 
     } catch (error) {
-        const basePath = getBasePath();
-        window.history.replaceState({}, '', `/${basePath}`);
+        window.history.replaceState({}, '', getBasePath() || '/');
         handleError(error);
     }
 }
@@ -153,11 +150,10 @@ function handleError(error) {
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
-        const redirect = new URL(sessionStorage.redirect);
-        const basePath = getBasePath();
-        const cleanPath = redirect.pathname.replace(`/${basePath}/Waifu-Generator`, '');
+        const redirectUrl = new URL(sessionStorage.redirect);
+        const cleanPath = redirectUrl.pathname.replace(/^\/Waifu-Generator/, '');
+        window.history.replaceState({}, '', `${getBasePath()}${cleanPath}`);
         delete sessionStorage.redirect;
-        window.history.replaceState({}, '', `/${basePath}${cleanPath}`);
     }
 
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
