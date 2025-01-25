@@ -155,12 +155,10 @@ function handleError(error) {
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
-        const basePath = getBasePath(); // Get the dynamic base path
-        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
-        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
+        window.history.replaceState({}, '', `${getBasePath()}${cleanPath}`);
         delete sessionStorage.redirect;
     }
-    
+
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
     updateCategories();
     
