@@ -84,7 +84,7 @@ async function fetchAndDisplayWaifus() {
         container.innerHTML = `
             <div class="error-container">
                 <div class="error-icon">
-                    <img src="assets/oops.png" alt="Oops">
+                    <img src="assets/oops.png" alt="oops">
                 </div>
                 <p class="error-text">Please select a category first!</p>
             </div>
