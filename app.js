@@ -3,74 +3,71 @@ let basePath = '';
 
 function togglePanel() {
     const panel = document.getElementById('sidePanel');
-    panel.classList.toggle('active');
+    const isActive = panel.classList.toggle('active');
+    panel.setAttribute('aria-expanded', isActive);
 }
 
-// Scroll to Top
+// Scroll Management
+const scrollTopButton = document.querySelector('.scroll-top');
+
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Scroll Button Visibility with Throttling
-let isScrolling;
+function handleScroll() {
+    scrollTopButton.classList.toggle('visible', window.scrollY > 300);
+}
+
 window.addEventListener('scroll', () => {
-    window.clearTimeout(isScrolling);
-    isScrolling = setTimeout(() => {
-        const scrollBtn = document.querySelector('.scroll-top');
-        scrollBtn.classList.toggle('visible', window.scrollY > 300);
-    }, 100);
+    window.requestAnimationFrame(handleScroll);
 });
 
 // Category Configuration
-const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
-const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'hug', 'kiss', 'pat', 'smug'];
+const categoryConfig = {
+    nsfw: new Set(['waifu', 'neko', 'trap', 'blowjob']),
+    sfw: new Set(['waifu', 'neko', 'shinobu', 'megumin', 'hug', 'kiss', 'pat', 'smug'])
+};
+
 const apiCache = new Map();
+const CACHE_EXPIRATION = 5 * 60 * 1000; // 5 minutes
 
 function updateCategories() {
     const dropdown = document.getElementById('categoryDropdown');
     const isNSFW = document.getElementById('nsfwToggle').checked;
-    const categories = isNSFW ? nsfwCategories : sfwCategories;
-
+    const type = isNSFW ? 'nsfw' : 'sfw';
+    
     dropdown.innerHTML = '<option value="" disabled selected>Select Category</option>';
-    categories.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat;
-        option.textContent = `${cat.charAt(0).toUpperCase()}${cat.slice(1)}`;
-        dropdown.appendChild(option);
+    categoryConfig[type].forEach(cat => {
+        dropdown.appendChild(new Option(
+            `${cat.charAt(0).toUpperCase()}${cat.slice(1)}`,
+            cat
+        ));
     });
 }
 
-// URL Handling
-function getBasePath() {
-    return basePath;
-}
-
+// URL Management
 function updateURL(type, category) {
-    const newPath = `${basePath}/${type}/${category}`;
-    window.history.pushState({}, '', newPath);
+    window.history.pushState({}, '', `${basePath}/${type}/${category}`);
 }
 
 function parseURL() {
-    const pathSegments = window.location.pathname.split('/').slice(2);
-    return {
-        type: pathSegments[0] || '',
-        category: pathSegments[1] || ''
-    };
+    const [, type, category] = window.location.pathname.split('/');
+    return { type: type || '', category: category || '' };
 }
 
-function validateAndApplyURLParams() {
+function validateURLParams() {
     const { type, category } = parseURL();
-    const validTypes = ['nsfw', 'sfw'];
+    const isValidType = ['nsfw', 'sfw'].includes(type);
+    const isValidCategory = isValidType && categoryConfig[type].has(category);
     
-    if (!validTypes.includes(type) || !(type === 'nsfw' ? nsfwCategories : sfwCategories).includes(category)) {
+    if (!isValidType || !isValidCategory) {
         window.history.replaceState({}, '', basePath || '/');
         return false;
     }
-
+    
     document.getElementById('nsfwToggle').checked = type === 'nsfw';
     updateCategories();
     document.getElementById('categoryDropdown').value = category;
-    fetchAndDisplayWaifus();
     return true;
 }
 
@@ -81,14 +78,7 @@ async function fetchAndDisplayWaifus() {
     const container = document.getElementById('waifu-container');
 
     if (!category) {
-        container.innerHTML = `
-            <div class="error-container">
-                <div class="error-icon">
-                    <img src="assets/oops.png" alt="Oops">
-                </div>
-                <p class="error-text">Please select a category first!</p>
-            </div>
-        `;
+        showError('Please select a category first!', 'assets/oops.png');
         return;
     }
 
@@ -96,9 +86,12 @@ async function fetchAndDisplayWaifus() {
 
     const cacheKey = `${type}-${category}`;
     if (apiCache.has(cacheKey)) {
-        displayWaifus(apiCache.get(cacheKey));
-        updateURL(type, category);
-        return;
+        const { timestamp, data } = apiCache.get(cacheKey);
+        if (Date.now() - timestamp < CACHE_EXPIRATION) {
+            displayWaifus(data);
+            updateURL(type, category);
+            return;
+        }
     }
 
     try {
@@ -110,16 +103,16 @@ async function fetchAndDisplayWaifus() {
             body: JSON.stringify({ exclude: [] })
         });
 
-        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+        if (!response.ok) throw new Error(`API Error: ${response.status} - ${await response.text()}`);
         
         const { files } = await response.json();
-        apiCache.set(cacheKey, files);
+        apiCache.set(cacheKey, { timestamp: Date.now(), data: files });
         displayWaifus(files);
         updateURL(type, category);
 
     } catch (error) {
         window.history.replaceState({}, '', basePath || '/');
-        handleError(error);
+        showError(`Failed to generate waifus: ${error.message}`, 'assets/smthnwrong.png', true);
     }
 }
 
@@ -127,49 +120,57 @@ function displayWaifus(files) {
     const container = document.getElementById('waifu-container');
     container.innerHTML = files.map(url => `
         <div class="image-wrapper">
-            <img src="${url}" alt="Generated waifu" loading="lazy">
+            <img src="${url}" 
+                 alt="Anime character illustration" 
+                 loading="lazy" 
+                 width="300" 
+                 height="400">
         </div>
     `).join('');
 }
 
-function handleError(error) {
+function showError(message, icon, showRetry = false) {
     const container = document.getElementById('waifu-container');
     container.innerHTML = `
-        <div class="error-container">
+        <div class="error-container" role="alert">
             <div class="error-icon">
-                <img src="assets/smthnwrong.png" alt="Smthnwrong">
+                <img src="${icon}" alt="" aria-hidden="true">
             </div>
-            <p class="error-text">Failed to generate waifus<br><small>${error.message || 'Unknown error'}</small></p>
+            <p class="error-text">${message}</p>
+            ${showRetry ? `
             <button class="retry-btn" onclick="fetchAndDisplayWaifus()">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M23 4v6h-6M1 20v-6h6"/>
                     <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
                 </svg>
                 Try Again
-            </button>
+            </button>` : ''}
         </div>
     `;
 }
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    const initialPath = window.location.pathname;
-    const pathParts = initialPath.split('/');
-    basePath = pathParts[1] ? `/${pathParts[1]}` : '';
+    const [_, repo] = window.location.pathname.split('/');
+    basePath = repo ? `/${repo}` : '';
 
     if (sessionStorage.redirect) {
-        const redirectUrl = new URL(sessionStorage.redirect);
-        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
-        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
-        delete sessionStorage.redirect;
+        try {
+            const redirectUrl = new URL(sessionStorage.redirect);
+            window.history.replaceState({}, '', redirectUrl.pathname.replace(/\/{2,}/g, '/'));
+        } finally {
+            delete sessionStorage.redirect;
+        }
     }
 
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
     updateCategories();
     
-    if (!validateAndApplyURLParams()) {
-        document.getElementById('categoryDropdown').value = '';
+    if (validateURLParams()) {
+        fetchAndDisplayWaifus();
     }
     
-    window.addEventListener('popstate', validateAndApplyURLParams);
+    window.addEventListener('popstate', () => {
+        if (validateURLParams()) fetchAndDisplayWaifus();
+    });
 });
