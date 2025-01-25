@@ -5,7 +5,7 @@ const waifuContainer = document.getElementById('waifu-container');
 const scrollBtn = document.querySelector('.scroll-top');
 
 // Panel Management
-let basePath = 'Waifu-Generator';
+let basePath = '';
 
 function togglePanel() {
     document.getElementById('sidePanel').classList.toggle('active');
@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
-        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
-        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
+        // Don't remove the basePath from the redirect URL
+        window.history.replaceState({}, '', redirectUrl.pathname);
         delete sessionStorage.redirect;
     }
 
