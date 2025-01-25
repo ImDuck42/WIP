@@ -27,7 +27,7 @@ window.addEventListener('scroll', () => {
 
 // Category Configuration
 const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
-const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'hug', 'kiss', 'pat', 'smug'];
+const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'];
 const apiCache = new Map();
 
 function updateCategories() {
