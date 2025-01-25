@@ -9,20 +9,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="./styles.css">
 
-    <!-- Make ./ work online and local -->
     <script>
         (function() {
-          const repoName = window.location.pathname.split('/')[1] || '';
-          const baseHref = repoName ? `/${repoName}/` : '/';
+          const pathSegments = window.location.pathname.split('/').filter(Boolean);
+          const isGitHubPages = pathSegments[1] !== 'assets'; // Adjust logic if needed
+          const baseHref = isGitHubPages ? `/${pathSegments[0]}/` : '/';
           document.write(`<base href="${baseHref}" />`);
         })();
-      </script>  
+    </script>      
 </head>
 <body>
     <nav class="main-nav">
         <div class="nav-container">
             <h1 class="logo">
-                <a href="./">🖤 Waifu Generator</a>
+                <a href="/">🖤 Waifu Generator</a>
             </h1>
             <button class="nav-toggle" aria-label="Open menu" onclick="togglePanel()">
                 <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
