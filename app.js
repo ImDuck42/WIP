@@ -5,7 +5,7 @@ const waifuContainer = document.getElementById('waifu-container');
 const scrollBtn = document.querySelector('.scroll-top');
 
 // Panel Management
-let basePath = '/';
+let basePath = '';
 
 function togglePanel() {
     document.getElementById('sidePanel').classList.toggle('active');
