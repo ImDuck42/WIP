@@ -5,7 +5,6 @@
     --accent-secondary: #9d75ff;
     --text-primary: #f8f8ff;
     --text-secondary: #a0a0c0;
-    --error-red: #ff4757;
     --border-radius: 16px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -22,18 +21,6 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     min-height: 100vh;
-}
-
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
 }
 
 .main-nav {
@@ -94,7 +81,7 @@ body {
     transition: var(--transition);
     display: flex;
     flex-direction: column;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .control-panel.active {
@@ -136,7 +123,6 @@ body {
 .toggle-switch {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
     cursor: pointer;
 }
@@ -187,9 +173,10 @@ input:checked + .slider::before {
     transition: var(--transition);
 }
 
-.styled-select:focus-visible {
-    outline: 2px solid var(--accent-primary);
-    outline-offset: 2px;
+.styled-select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.2);
 }
 
 .generate-btn {
@@ -241,6 +228,7 @@ input:checked + .slider::before {
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
+    background: var(--bg-secondary);
 }
 
 .image-wrapper img {
@@ -248,7 +236,6 @@ input:checked + .slider::before {
     height: auto;
     object-fit: contain;
     transition: var(--transition);
-    border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -325,6 +312,11 @@ input:checked + .slider::before {
     animation: pulse 1.5s infinite;
 }
 
+@keyframes pulse {
+    0%, 100% { opacity: 1 }
+    50% { opacity: 0.5 }
+}
+
 .error-container {
     display: flex;
     flex-direction: column;
@@ -338,14 +330,14 @@ input:checked + .slider::before {
     border-radius: var(--border-radius);
     margin: 2rem;
     animation: fadeIn 0.3s ease-out;
-    border: 1px solid var(--error-red);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     max-height: fit-content;
     max-width: fit-content;
 }
 
 .error-icon {
     font-size: 2.5rem;
-    color: var(--error-red);
+    color: #ff4757;
     filter: drop-shadow(0 0 8px rgba(255, 71, 87, 0.3));
 }
 
@@ -371,11 +363,6 @@ input:checked + .slider::before {
 .retry-btn:hover {
     background: var(--accent-secondary);
     transform: translateY(-1px);
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1 }
-    50% { opacity: 0.5 }
 }
 
 @keyframes fadeIn {
@@ -404,33 +391,8 @@ input:checked + .slider::before {
     .generate-btn:active {
         transform: translateY(1px);
     }
-
-    .image-wrapper img:hover {
-        transform: none;
-    }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    :root {
-        --transition: all 0.1s linear;
-    }
-    
-    .image-wrapper img:hover {
-        transform: none;
-    }
-    
-    .btn-glow {
-        display: none;
-    }
-    
-    .loading-skeleton {
-        animation: none;
-    }
-}
-
-button:focus-visible,
-select:focus-visible,
-a:focus-visible {
-    outline: 2px solid var(--accent-primary);
-    outline-offset: 2px;
+.styled-select[type="text"] {
+    margin-bottom: 0.5rem;
 }
