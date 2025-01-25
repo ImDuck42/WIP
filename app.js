@@ -21,7 +21,7 @@ window.addEventListener('scroll', () => {
 
 // Category Configuration
 const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
-const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'];
+const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'hug', 'kiss', 'pat', 'smug'];
 const apiCache = new Map();
 
 function updateCategories() {
@@ -84,7 +84,7 @@ async function fetchAndDisplayWaifus() {
         container.innerHTML = `
             <div class="error-container">
                 <div class="error-icon">
-                <img SRC="./assets/oops.png" ALT="Oopsie">
+                    <img src="assets/oops.png" alt="Oops">
                 </div>
                 <p class="error-text">Please select a category first!</p>
             </div>
@@ -137,7 +137,7 @@ function handleError(error) {
     container.innerHTML = `
         <div class="error-container">
             <div class="error-icon">
-                <img SRC="./assets/smthnwrong.png" ALT="Error">
+                <img src="assets/smthnwrong.png" alt="Smthnwrong">
             </div>
             <p class="error-text">Failed to generate waifus<br><small>${error.message || 'Unknown error'}</small></p>
             <button class="retry-btn" onclick="fetchAndDisplayWaifus()">
