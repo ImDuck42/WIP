@@ -2,8 +2,9 @@
 <html>
 <head>
     <script>
-        sessionStorage.redirect = location.href;
-        window.location.replace(window.location.origin);
+        // Preserve the full path including repository name
+        sessionStorage.redirect = window.location.href;
+        window.location.replace(window.location.origin + window.location.pathname.split('/').slice(0,2).join('/'));
     </script>
 </head>
 <body></body>

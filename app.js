@@ -39,25 +39,33 @@ function updateCategories() {
 }
 
 // URL Handling
+function getBasePath() {
+    const pathParts = window.location.pathname.split('/');
+    return pathParts[1] || '';
+}
+
 function updateURL(type, category) {
-    const path = `/${type}/${category}`;
+    const basePath = getBasePath();
+    const path = `/${basePath}/${type}/${category}`;
     window.history.pushState({}, '', path);
 }
 
 function parseURL() {
-    const pathSegments = window.location.pathname.slice(1).split('/');
+    const basePath = getBasePath();
+    const pathSegments = window.location.pathname.split('/').slice(2);
     return {
-        type: pathSegments[0],
-        category: pathSegments[1]
+        type: pathSegments[0] || '',
+        category: pathSegments[1] || ''
     };
 }
 
 function validateAndApplyURLParams() {
     const { type, category } = parseURL();
     const validTypes = ['nsfw', 'sfw'];
+    const basePath = getBasePath();
     
     if (!validTypes.includes(type) || !(type === 'nsfw' ? nsfwCategories : sfwCategories).includes(category)) {
-        window.history.replaceState({}, '', '/');
+        window.history.replaceState({}, '', `/${basePath}`);
         return false;
     }
 
@@ -110,7 +118,8 @@ async function fetchAndDisplayWaifus() {
         updateURL(type, category);
 
     } catch (error) {
-        window.history.replaceState({}, '', '/');
+        const basePath = getBasePath();
+        window.history.replaceState({}, '', `/${basePath}`);
         handleError(error);
     }
 }
@@ -143,11 +152,12 @@ function handleError(error) {
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Check for redirect from 404 page
     if (sessionStorage.redirect) {
-        const redirect = sessionStorage.redirect;
+        const redirect = new URL(sessionStorage.redirect);
+        const basePath = getBasePath();
+        const cleanPath = redirect.pathname.replace(`/${basePath}`, '');
         delete sessionStorage.redirect;
-        window.history.replaceState({}, '', redirect);
+        window.history.replaceState({}, '', `/${basePath}${cleanPath}`);
     }
 
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
