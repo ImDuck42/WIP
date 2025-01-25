@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
-        // Don't remove the basePath from the redirect URL
-        window.history.replaceState({}, '', redirectUrl.pathname);
+        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
+        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
         delete sessionStorage.redirect;
     }
 
