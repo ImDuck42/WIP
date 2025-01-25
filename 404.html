@@ -5,23 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    <script>
-        (function() {
-          const repoName = window.location.pathname.split('/')[1] || '';
-          const baseHref = repoName ? `/${repoName}/` : '/';
-          document.write(`<base href="${baseHref}" />`);
-        })();
-      </script>
-  
-    <!-- Make ./ work online and local -->
-    <script>
-        (function() {
-        const repoName = window.location.pathname.split('/')[1] || '';
-        const baseHref = repoName ? `/${repoName}/` : '/';
-        document.write(`<base href="${baseHref}" />`);
-        })();
-    </script>
-
     <style>
         :root {
             --bg-primary: #0d001d;
@@ -84,11 +67,20 @@
             box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
         }
     </style>
+    
+    <!-- Make ./ work online and local -->
+    <script>
+        (function() {
+        const repoName = window.location.pathname.split('/')[1] || '';
+        const baseHref = repoName ? `/${repoName}/` : '/';
+        document.write(`<base href="${baseHref}" />`);
+        })();
+    </script>
 </head>
 <body>
     <div class="error-container">
         <div class="error-icon">
-            <img src="./../assets/sadge.png" alt="Error">
+            <img src="./assets/sadge.png" alt="Error">
         </div>
         <h1 class="error-title">Invalid URL</h1>
         <p class="error-message">

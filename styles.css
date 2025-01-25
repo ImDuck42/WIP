@@ -1,4 +1,3 @@
-/* Design system variables */
 :root {
     --bg-primary: #0d001d;
     --bg-secondary: #1a1a2e;
@@ -10,8 +9,6 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-/* Global styles */
 * {
     margin: 0;
     padding: 0;
@@ -26,8 +23,6 @@ body {
     min-height: 100vh;
 }
 
-
-/* Utility classes -- index.html */
 .main-nav {
     padding: 1rem;
     background: var(--bg-secondary);
@@ -318,6 +313,11 @@ input:checked + .slider::before {
     animation: pulse 1.5s infinite;
 }
 
+@keyframes pulse {
+    0%, 100% { opacity: 1 }
+    50% { opacity: 0.5 }
+}
+
 .error-container {
     display: flex;
     flex-direction: column;
@@ -366,13 +366,6 @@ input:checked + .slider::before {
     transform: translateY(-1px);
 }
 
-
-/* Keyframes */
-@keyframes pulse {
-    0%, 100% { opacity: 1 }
-    50% { opacity: 0.5 }
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -384,7 +377,6 @@ input:checked + .slider::before {
     }
 }
 
-/* Media queries */
 @media (max-width: 768px) {
     .gallery-container {
         grid-template-columns: 1fr;
