@@ -38,6 +38,36 @@ function updateCategories() {
     });
 }
 
+// URL Handling
+function updateURL(type, category) {
+    const path = `/${type}/${category}`;
+    window.history.pushState({}, '', path);
+}
+
+function parseURL() {
+    const pathSegments = window.location.pathname.slice(1).split('/');
+    return {
+        type: pathSegments[0],
+        category: pathSegments[1]
+    };
+}
+
+function validateAndApplyURLParams() {
+    const { type, category } = parseURL();
+    const validTypes = ['nsfw', 'sfw'];
+    
+    if (!validTypes.includes(type) || !(type === 'nsfw' ? nsfwCategories : sfwCategories).includes(category)) {
+        window.history.replaceState({}, '', '/');
+        return false;
+    }
+
+    document.getElementById('nsfwToggle').checked = type === 'nsfw';
+    updateCategories();
+    document.getElementById('categoryDropdown').value = category;
+    fetchAndDisplayWaifus();
+    return true;
+}
+
 // Image Handling
 async function fetchAndDisplayWaifus() {
     const type = document.getElementById('nsfwToggle').checked ? 'nsfw' : 'sfw';
@@ -59,6 +89,7 @@ async function fetchAndDisplayWaifus() {
     const cacheKey = `${type}-${category}`;
     if (apiCache.has(cacheKey)) {
         displayWaifus(apiCache.get(cacheKey));
+        updateURL(type, category);
         return;
     }
 
@@ -76,8 +107,10 @@ async function fetchAndDisplayWaifus() {
         const { files } = await response.json();
         apiCache.set(cacheKey, files);
         displayWaifus(files);
+        updateURL(type, category);
 
     } catch (error) {
+        window.history.replaceState({}, '', '/');
         handleError(error);
     }
 }
@@ -110,6 +143,19 @@ function handleError(error) {
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    // Check for redirect from 404 page
+    if (sessionStorage.redirect) {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        window.history.replaceState({}, '', redirect);
+    }
+
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
     updateCategories();
+    
+    if (!validateAndApplyURLParams()) {
+        document.getElementById('categoryDropdown').value = '';
+    }
+    
+    window.addEventListener('popstate', validateAndApplyURLParams);
 });
