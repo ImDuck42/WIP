@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
         const redirect = new URL(sessionStorage.redirect);
         const basePath = getBasePath();
-        const cleanPath = redirect.pathname.replace(`/${basePath}`, '');
+        const cleanPath = redirect.pathname.replace(`/${basePath}/Waifu-Generator`, '');
         delete sessionStorage.redirect;
         window.history.replaceState({}, '', `/${basePath}${cleanPath}`);
     }
