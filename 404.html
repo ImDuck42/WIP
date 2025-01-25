@@ -4,21 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
-    <link rel="stylesheet" href="./assets/styles/styles-404.css">
+    <link rel="stylesheet" href="/assets/styles/styles-404.css">
     
-    <!-- Make ./ work online and local -->
-    <script>
-        (function() {
-        const repoName = window.location.pathname.split('/')[1] || '';
-        const baseHref = repoName ? `/${repoName}/` : '/';
-        document.write(`<base href="${baseHref}" />`);
-        })();
-    </script>
 </head>
 <body >
     <div class="error-container">
         <div class="error-icon">
-            <img src="./../assets/sadge.png" alt="Error">
+            <img src="/assets/sadge.png" alt="Error">
         </div>
         <h1 class="error-title">Invalid URL</h1>
         <p class="error-message">
