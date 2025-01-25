@@ -148,16 +148,8 @@ function handleError(error) {
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     const initialPath = window.location.pathname;
-    
-    // Get repository base path from URL
-    const pathParts = window.location.pathname.split('/');
+    const pathParts = initialPath.split('/');
     basePath = pathParts[1] ? `/${pathParts[1]}` : '';
-
-
-    // Set logo link
-    const logoLink = document.getElementById('logoLink');
-    logoLink.href = `${basePath}/`;
-
 
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
