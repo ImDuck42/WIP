@@ -148,14 +148,15 @@ function handleError(error) {
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     const initialPath = window.location.pathname;
-    const pathParts = initialPath.split('/');
+    
+    // Get repository base path from URL
+    const pathParts = window.location.pathname.split('/');
     basePath = pathParts[1] ? `/${pathParts[1]}` : '';
 
-    // Update logo link
+
+    // Set logo link
     const logoLink = document.getElementById('logoLink');
-    if (logoLink) {
-        logoLink.href = basePath || '/';
-    }
+    logoLink.href = `${basePath}/`;
 
 
     if (sessionStorage.redirect) {
