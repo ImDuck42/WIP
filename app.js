@@ -9,15 +9,20 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Scroll Button Visibility
+// Scroll Button Visibility with Throttling
+let isScrolling;
 window.addEventListener('scroll', () => {
-    const scrollBtn = document.querySelector('.scroll-top');
-    scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    window.clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {
+        const scrollBtn = document.querySelector('.scroll-top');
+        scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    }, 100);
 });
 
 // Category Configuration
 const nsfwCategories = ['waifu', 'neko', 'trap', 'blowjob'];
 const sfwCategories = ['waifu', 'neko', 'shinobu', 'megumin', 'hug', 'kiss', 'pat', 'smug'];
+const apiCache = new Map();
 
 function updateCategories() {
     const dropdown = document.getElementById('categoryDropdown');
@@ -33,50 +38,74 @@ function updateCategories() {
     });
 }
 
-// Image Generation
+// Image Handling
 async function fetchAndDisplayWaifus() {
     const type = document.getElementById('nsfwToggle').checked ? 'nsfw' : 'sfw';
     const category = document.getElementById('categoryDropdown').value;
     const container = document.getElementById('waifu-container');
 
-    // Auto-close panel on mobile
-    if (window.innerWidth <= 768) {
-        togglePanel();
+    if (!category) {
+        container.innerHTML = `
+            <div class="error-container">
+                <div class="error-icon">⚠️</div>
+                <p class="error-text">Please select a category first!</p>
+            </div>
+        `;
+        return;
+    }
+
+    if (window.innerWidth <= 768) togglePanel();
+
+    const cacheKey = `${type}-${category}`;
+    if (apiCache.has(cacheKey)) {
+        displayWaifus(apiCache.get(cacheKey));
+        return;
     }
 
     try {
-        container.innerHTML = '<div class="loading">Generating...</div>';
+        container.innerHTML = '<div class="loading-skeleton"></div>'.repeat(9);
         
         const response = await fetch(`https://api.waifu.pics/many/${type}/${category}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
+            body: JSON.stringify({ exclude: [] })
         });
 
-        if (!response.ok) throw new Error('API Error');
+        if (!response.ok) throw new Error(`API Error: ${response.status}`);
         
         const { files } = await response.json();
-        container.innerHTML = files.map(url => `
-            <img src="${url}" alt="Generated waifu" loading="lazy">
-        `).join('');
+        apiCache.set(cacheKey, files);
+        displayWaifus(files);
 
     } catch (error) {
-        console.error('Error:', error);
-        // In fetchAndDisplayWaifus() catch block:
-        container.innerHTML = `
-            <div class="error-container">
-                <div class="error-icon">⚠️</div>
-                <p class="error-text">Failed to generate waifus<br><small>${error.message || 'Unknown error'}</small></p>
-                <button class="retry-btn" onclick="fetchAndDisplayWaifus()">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M23 4v6h-6M1 20v-6h6"/>
-                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
-                    </svg>
-                    Try Again
-                </button>
-            </div>
-        `;
+        handleError(error);
     }
+}
+
+function displayWaifus(files) {
+    const container = document.getElementById('waifu-container');
+    container.innerHTML = files.map(url => `
+        <div class="image-wrapper">
+            <img src="${url}" alt="Generated waifu" loading="lazy">
+        </div>
+    `).join('');
+}
+
+function handleError(error) {
+    const container = document.getElementById('waifu-container');
+    container.innerHTML = `
+        <div class="error-container">
+            <div class="error-icon">⚠️</div>
+            <p class="error-text">Failed to generate waifus<br><small>${error.message || 'Unknown error'}</small></p>
+            <button class="retry-btn" onclick="fetchAndDisplayWaifus()">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 4v6h-6M1 20v-6h6"/>
+                    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                </svg>
+                Try Again
+            </button>
+        </div>
+    `;
 }
 
 // Initialization
