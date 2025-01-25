@@ -1,80 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waifu Generator by ImDuck42</title>
-
-    <!-- Open Graph meta tags -->
-    <link rel="icon" type="image/png" href="assets/icons/WbsiteIcon.png">
-    <meta property="og:title" content="Waifu Generator" />
-    <meta property="og:description" content="Generate waifus" />
-    <meta property="og:image" content="assets/images/Waifu.jpg" />
-
-    <!-- Stylesheet link -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <title>NeonWaifu Generator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <nav>
-        <div id="Header">
-            <h1>Waifu Generator</h1>
-        </div>
-
-        <div id="menu">
-            <img src="assets/icons/menu.png" alt="Menu" onclick="toggleSidePanel()">
+    <nav class="main-nav">
+        <div class="nav-container">
+            <h1 class="logo">🖤 Waifu Generator</h1>
+            <button class="nav-toggle" aria-label="Open menu" onclick="togglePanel()">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
         </div>
     </nav>
 
-    <!-- Scroll to top button -->
-    <img src="assets/icons/up-arrow.png" id="scrollToTopBtn" onclick="scrollToTop()">
-
-    <!-- Sidebar with NSFW toggle and category dropdown -->
-    <div id="sidePanel">
-        <div id="sideHeader">
-            <h2>Options</h2>
-            <button id="closeBtn" onclick="closeSidePanel()">
-                <img src="assets/icons/close.png" alt="Close" />
+    <aside class="control-panel" id="sidePanel">
+        <div class="panel-header">
+            <h2>Settings</h2>
+            <button class="close-btn" onclick="togglePanel()" aria-label="Close panel">
+                &times;
             </button>
         </div>
 
-        <label class="switch">
-            <p>Enable NSFW</p>
-            <input type="checkbox" id="nsfwToggle" enabled>
-        </label>
+        <div class="panel-content">
+            <div class="setting-group">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="nsfwToggle">
+                    <span class="slider"></span>
+                    <span class="label-text">NSFW Mode</span>
+                </label>
+            </div>
 
-        <div class="generate">
-            <select id="categoryDropdown">
-                <!-- Categories will be dynamically added here -->
-            </select>
-            <button onclick="fetchAndDisplayWaifus(); closeSidePanel()">Generate</button>
+            <div class="setting-group">
+                <select id="categoryDropdown" class="styled-select">
+                    <option value="" disabled selected>Select Category</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" onclick="fetchAndDisplayWaifus()">
+                Generate Waifus
+                <span class="btn-glow"></span>
+            </button>
         </div>
 
-        <!-- Content for the side panel -->
-        <p>My Socials</p>
-
-        <!-- Footer with clickable social buttons -->
-        <footer id="sideFooter">
-            <img src="assets/icons/discord.png" class="socialImage" onclick="openSocialLink('https://discord.com/invite/kfsJkVTbg4')">
-            <img src="assets/icons/github-sign.png" class="socialImage" onclick="openSocialLink('https://github.com/ImDuck42')">
-            <img src="assets/icons/spotify-logo.png" class="socialImage" onclick="openSocialLink('https://open.spotify.com/user/31kec3k4xfttchdyssez2dw7rm24')">
-            <img src="assets/icons/youtube.png" class="socialImage" onclick="openSocialLink('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=64s')">
-        </footer>
-    </div>
-
-    <main>
-        <div id="waifu-container"></div>
-    </main>
-
-    <footer id="footer">
-        <div>
-            Please don't sue me
+        <div class="panel-footer">
+            <div class="social-links">
+                <a href="https://github.com/ImDuck42" target="_blank" class="social-link">
+                    <img src="assets/github.png" alt="GitHub">
+                </a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="social-link">
+                    <img src="assets/youtube.png" alt="YouTube">
+                </a>
+            </div>
+            <p class="copyright">Crafted with ♡ by ImDuck42</p>
         </div>
-    </footer>
+    </aside>
 
-    <!-- JavaScript script link -->
-    <script defer src="script.js"></script>
+    <main class="gallery-container" id="waifu-container"></main>
+
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <script src="app.js"></script>
 </body>
-
 </html>
