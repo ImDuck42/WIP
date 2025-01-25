@@ -84,7 +84,7 @@ async function fetchAndDisplayWaifus() {
         container.innerHTML = `
             <div class="error-container">
                 <div class="error-icon">
-                    <img src="assets/oops.png" alt="oops">
+                    <img src="assets/oops.png" alt="Oops">
                 </div>
                 <p class="error-text">Please select a category first!</p>
             </div>
@@ -155,11 +155,12 @@ function handleError(error) {
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
-        const cleanPath = redirectUrl.pathname.replace(/^\/Waifu-Generator/, '');
-        window.history.replaceState({}, '', `${getBasePath()}${cleanPath}`);
+        const basePath = getBasePath(); // Get the dynamic base path
+        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
+        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
         delete sessionStorage.redirect;
     }
-
+    
     document.getElementById('nsfwToggle').addEventListener('change', updateCategories);
     updateCategories();
     
