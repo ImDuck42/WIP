@@ -67,6 +67,14 @@
             box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
         }
     </style>
+
+    <script>
+        (function() {
+        const repoName = window.location.pathname.split('/')[1] || '';
+        const baseHref = repoName ? `/${repoName}/` : '/';
+        document.write(`<base href="${baseHref}" />`);
+        })();
+    </script>
 </head>
 <body>
     <div class="error-container">
