@@ -82,7 +82,7 @@ async function fetchAndDisplayWaifus() {
         waifuContainer.innerHTML = `
             <div class="error-container">
                 <div class="error-icon">
-                    <img src="./assets/oops.png" alt="Oops">
+                    <img src="${basePath}/assets/oops.png" alt="Oops">
                 </div>
                 <p class="error-text">Please select a category first!</p>
             </div>`;
@@ -132,7 +132,7 @@ function handleError(error) {
     waifuContainer.innerHTML = `
         <div class="error-container">
             <div class="error-icon">
-                <img src="./assets/smthnwrong.png" alt="Smthnwrong">
+                <img src="${basePath}/assets/smthnwrong.png" alt="Smthnwrong">
             </div>
             <p class="error-text">Failed to generate waifus<br><small>${error.message || 'Unknown error'}</small></p>
             <button class="retry-btn" onclick="fetchAndDisplayWaifus()">
