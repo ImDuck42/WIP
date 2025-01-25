@@ -151,6 +151,12 @@ function handleError(error) {
     `;
 }
 
+(function() {
+    const repoName = window.location.pathname.split('/')[1] || '';
+    const baseHref = repoName ? `/${repoName}/` : '/';
+    document.write(`<base href="${baseHref}" />`);
+    })();
+
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
