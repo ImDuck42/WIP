@@ -1,21 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
     <script>
-        (function() {
-            const preservePath = sessionStorage.redirect = window.location.href;
-            const pathSegments = window.location.pathname.split('/').filter(Boolean);
-            const repoPath = pathSegments.length > 0 ? '/' + pathSegments[0] : '';
-            window.location.replace(window.location.origin + repoPath);
-        })();
+        // Preserve the full path including repository name
+        sessionStorage.redirect = window.location.href;
+        window.location.replace(window.location.origin + window.location.pathname.split('/').slice(0,2).join('/'));
     </script>
 </head>
-<body>
-    <noscript>
-        <h1>Page Not Found</h1>
-        <p>Please enable JavaScript to be redirected.</p>
-    </noscript>
-</body>
+<body></body>
 </html>
