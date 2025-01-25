@@ -151,6 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const pathParts = initialPath.split('/');
     basePath = pathParts[1] ? `/${pathParts[1]}` : '';
 
+    // Update logo link
+    const logoLink = document.getElementById('logoLink');
+    if (logoLink) {
+        logoLink.href = basePath || '/';
+    }
+
+
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
         const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
