@@ -1,4 +1,6 @@
 // Panel Management
+let basePath = '';
+
 function togglePanel() {
     const panel = document.getElementById('sidePanel');
     panel.classList.toggle('active');
@@ -40,12 +42,10 @@ function updateCategories() {
 
 // URL Handling
 function getBasePath() {
-    // Get repository name from the first path segment
-    return window.location.pathname.split('/')[1] ? `/${window.location.pathname.split('/')[1]}` : '';
+    return basePath;
 }
 
 function updateURL(type, category) {
-    const basePath = getBasePath();
     const newPath = `${basePath}/${type}/${category}`;
     window.history.pushState({}, '', newPath);
 }
@@ -63,7 +63,7 @@ function validateAndApplyURLParams() {
     const validTypes = ['nsfw', 'sfw'];
     
     if (!validTypes.includes(type) || !(type === 'nsfw' ? nsfwCategories : sfwCategories).includes(category)) {
-        window.history.replaceState({}, '', getBasePath() || '/');
+        window.history.replaceState({}, '', basePath || '/');
         return false;
     }
 
@@ -118,7 +118,7 @@ async function fetchAndDisplayWaifus() {
         updateURL(type, category);
 
     } catch (error) {
-        window.history.replaceState({}, '', getBasePath() || '/');
+        window.history.replaceState({}, '', basePath || '/');
         handleError(error);
     }
 }
@@ -153,11 +153,14 @@ function handleError(error) {
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    const initialPath = window.location.pathname;
+    const pathParts = initialPath.split('/');
+    basePath = pathParts[1] ? `/${pathParts[1]}` : '';
+
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
-        // Remove only the repository name once (if present)
-        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${getBasePath()}`), '');
-        window.history.replaceState({}, '', `${getBasePath()}${cleanPath}`);
+        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${basePath}`), '');
+        window.history.replaceState({}, '', `${basePath}${cleanPath}`);
         delete sessionStorage.redirect;
     }
 
