@@ -40,8 +40,8 @@ function updateCategories() {
 
 // URL Handling
 function getBasePath() {
-    const pathParts = window.location.pathname.split('/');
-    return pathParts[1] ? `/${pathParts[1]}` : '';
+    // Get repository name from the first path segment
+    return window.location.pathname.split('/')[1] ? `/${window.location.pathname.split('/')[1]}` : '';
 }
 
 function updateURL(type, category) {
@@ -155,6 +155,8 @@ function handleError(error) {
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.redirect) {
         const redirectUrl = new URL(sessionStorage.redirect);
+        // Remove only the repository name once (if present)
+        const cleanPath = redirectUrl.pathname.replace(new RegExp(`^${getBasePath()}`), '');
         window.history.replaceState({}, '', `${getBasePath()}${cleanPath}`);
         delete sessionStorage.redirect;
     }
